@@ -4,6 +4,7 @@
 int encode(int red, int green, int blue) {
     int color = 0;
     // Your code goes here
+    color = (red<<16) | (green<<8) | blue;
     return color;
 }
 
