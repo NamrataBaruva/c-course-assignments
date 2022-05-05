@@ -101,7 +101,6 @@ int main(int argc, char *argv[])
 
         for (int ip = 3; (ip <= argc - 1); ip++)
         {
-
             float IpTemp = atof(argv[ip]);
 
             switch (ConvetType)
