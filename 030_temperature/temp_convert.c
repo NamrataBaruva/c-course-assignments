@@ -4,7 +4,7 @@
 
 int main(int argc, char *argv[])
 {
-    char unit[2];
+    char *unit[2];
     if (argc < 3)
     {
         fprintf(stderr, "%s: error: Not enough arguments.\n Usage: temp_convert INPUT_SCALE OUTPUT_SCALE [TEMPERATURE]...\n", argv[0]);
@@ -26,17 +26,17 @@ int main(int argc, char *argv[])
 
             if ((0 == strcmp(argv[count], "°C")) | (0 == strcmp(argv[count], "c")) | (0 == strcmp(argv[count], "C")) | (0 == strcmp(argv[count], "celsius")) | (0 == strcmp(argv[count], "Celsius")))
             {
-                // fputs("Celsius", stdout);
+                 fputs("Celsius", stdout);
                 unit[count] = "C";
             }
             else if ((0 == strcmp(argv[count], "°F")) | (0 == strcmp(argv[count], "f")) | (0 == strcmp(argv[count], "F")) | (0 == strcmp(argv[count], "fahrenheit")) | (0 == strcmp(argv[count], "Fahrenheit")))
             {
-                // fputs("Fahrenheit", stdout);
+                fputs("Fahrenheit", stdout);
                 unit[count] = "F";
             }
             else if ((0 == strcmp(argv[count], "k")) | (0 == strcmp(argv[count], "K")) | (0 == strcmp(argv[count], "kelvin")) | (0 == strcmp(argv[count], "Kelvin")))
             {
-                // fputs("Kelvin", stdout);
+                 fputs("Kelvin", stdout);
                 unit[count] = "K";
             }
             else
@@ -48,11 +48,11 @@ int main(int argc, char *argv[])
 
         // get conversion type eg c->f
         int ConvetType;
+        //char u1 =*unit[1];
 
-        switch (unit[1])
-        {
-        case 'C':
-            if (unit[2] == "F") // c ->F
+         if (unit[1] == "C")
+         {
+             if (unit[2] == "F") // c ->F
             {
                 ConvetType = 1;
             }
@@ -64,9 +64,10 @@ int main(int argc, char *argv[])
             {
                 ConvetType = 0;
             }
-            break;
-        case 'F':
-            if (unit[2] == "C") // F ->C
+         }
+        else if (unit[1] == "F")
+         {
+             if (unit[2] == "C") // F ->C
             {
                 ConvetType = 3;
             }
@@ -78,9 +79,10 @@ int main(int argc, char *argv[])
             {
                 ConvetType = 0;
             }
-            break;
-        case 'K':
-            if (unit[2] == "C") // K ->C
+         }
+         else if (unit[1] == "K")
+         {
+             if (unit[2] == "C") // K ->C
             {
                 ConvetType = 5;
             }
@@ -92,21 +94,20 @@ int main(int argc, char *argv[])
             {
                 ConvetType = 0;
             }
-            break;
-
-        default:
-            fputs("error: Unrecognized temperature scale ", stdout);
+         }
+         else 
+         {
+             fputs("error: Unrecognized temperature scale ", stdout);
             // abort();
-            break;
-        }
-       
+         }
+        
         float OpTemp;
         
         
-        for (int ip = 3; (ip <= argc); ip++)
+        for (int ip = 3; (ip <= argc-1); ip++)
         {
        
-        float IpTemp=atof(argv[ip]);
+        float IpTemp = atof(argv[ip]);
 
         switch (ConvetType)
         {
@@ -134,9 +135,9 @@ int main(int argc, char *argv[])
 
         default:
         //error
-            break;
-            printf("%.6f\n", OpTemp);
+            break;            
         }
+        printf("%.6f\n", OpTemp);
         }
 
     }
