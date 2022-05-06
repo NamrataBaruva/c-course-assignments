@@ -17,19 +17,19 @@ int main(int argc, char *argv[])
 
         for (int count = 1; (count <= 2); count++)
         {
-            if (((argv[count][1]) == 'C') | (0 == strcmp(argv[count], "c")) | (0 == strcmp(argv[count], "C")) | (0 == strcmp(argv[count], "celsius")) | (0 == strcmp(argv[count], "Celsius")))
+            if (((argv[count][1]) == 'C') || (0 == strcmp(argv[count], "c")) || (0 == strcmp(argv[count], "C")) || (0 == strcmp(argv[count], "celsius")) || (0 == strcmp(argv[count], "Celsius")))
             {
-                // (argv[count][1]) == 'C') takes care of ° C
+                // (argv[count][1]) == 'C') takes care of ° C   ((argv[count][1]) == 'C')
                 // fputs("Celsius", stdout);
                 unit[count] = "C";
             }
-            else if (((argv[count][1]) == 'F') | (0 == strcmp(argv[count], "f")) | (0 == strcmp(argv[count], "F")) | (0 == strcmp(argv[count], "fahrenheit")) | (0 == strcmp(argv[count], "Fahrenheit")))
+            else if (((argv[count][1]) == 'F') || (0 == strcmp(argv[count], "f")) || (0 == strcmp(argv[count], "F")) || (0 == strcmp(argv[count], "fahrenheit")) || (0 == strcmp(argv[count], "Fahrenheit")))
             {
-                // (argv[count][1]) == 'F') takes care of ° F
+                // (argv[count][1]) == 'F') takes care of ° F  alt+ 0176
                 // fputs("Fahrenheit", stdout);
                 unit[count] = "F";
             }
-            else if ((0 == strcmp(argv[count], "k")) | (0 == strcmp(argv[count], "K")) | (0 == strcmp(argv[count], "kelvin")) | (0 == strcmp(argv[count], "Kelvin")))
+            else if ((0 == strcmp(argv[count], "k")) || (0 == strcmp(argv[count], "K")) || (0 == strcmp(argv[count], "kelvin")) || (0 == strcmp(argv[count], "Kelvin")))
             {
                 // fputs("Kelvin", stdout);
                 unit[count] = "K";
