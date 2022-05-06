@@ -11,129 +11,129 @@ int main(int argc, char *argv[])
         abort();
         return EXIT_FAILURE;
     }
-
-    if (argc == 3)
+     
+     if (argc >= 3) 
+     {
+    for (int count = 1; (count <= 2); count++) 
     {
-        fputs("Not enough inputs for calculation", stderr);
-        return EXIT_SUCCESS;
-    }
-
-    if (argc >= 3)
-    {
-        for (int count = 1; (count <= 2); count++)
+        if ((0 == strcmp(argv[count], "°C")) | (0 == strcmp(argv[count], "c")) | (0 == strcmp(argv[count], "C")) | (0 == strcmp(argv[count], "celsius")) | (0 == strcmp(argv[count], "Celsius")))
         {
-            if ((0 == strcmp(argv[count], "°C")) | (0 == strcmp(argv[count], "c")) | (0 == strcmp(argv[count], "C")) | (0 == strcmp(argv[count], "celsius")) | (0 == strcmp(argv[count], "Celsius")))
-            {
-                // fputs("Celsius", stdout);
-                unit[count] = "C";
-            }
-            else if ((0 == strcmp(argv[count], "°F")) | (0 == strcmp(argv[count], "f")) | (0 == strcmp(argv[count], "F")) | (0 == strcmp(argv[count], "fahrenheit")) | (0 == strcmp(argv[count], "Fahrenheit")))
-            {
-                // fputs("Fahrenheit", stdout);
-                unit[count] = "F";
-            }
-            else if ((0 == strcmp(argv[count], "k")) | (0 == strcmp(argv[count], "K")) | (0 == strcmp(argv[count], "kelvin")) | (0 == strcmp(argv[count], "Kelvin")))
-            {
-                // fputs("Kelvin", stdout);
-                unit[count] = "K";
-            }
-            else
-            {
-                printf("error: Unrecognized temperature scale %s", argv[count]);
-                return EXIT_FAILURE;
-            }
-        } // for loop end
-
-        // get conversion type eg c->f
-        int ConvetType;
-        if (unit[1] == "C")
-        {
-            if (unit[2] == "F") // c ->F
-            {
-                ConvetType = 1;
-            }
-            else if (unit[2] == "K") // c->K
-            {
-                ConvetType = 2;
-            }
-            else
-            {
-                ConvetType = 0;
-            }
+            // fputs("Celsius", stdout);
+            unit[count] = "C";
         }
-        else if (unit[1] == "F")
+        else if ((0 == strcmp(argv[count], "°F")) | (0 == strcmp(argv[count], "f")) | (0 == strcmp(argv[count], "F")) | (0 == strcmp(argv[count], "fahrenheit")) | (0 == strcmp(argv[count], "Fahrenheit")))
         {
-            if (unit[2] == "C") // F ->C
-            {
-                ConvetType = 3;
-            }
-            else if (unit[2] == "K") // F-> K
-            {
-                ConvetType = 4;
-            }
-            else
-            {
-                ConvetType = 0;
-            }
+            // fputs("Fahrenheit", stdout);
+            unit[count] = "F";
         }
-        else if (unit[1] == "K")
+        else if ((0 == strcmp(argv[count], "k")) | (0 == strcmp(argv[count], "K")) | (0 == strcmp(argv[count], "kelvin")) | (0 == strcmp(argv[count], "Kelvin")))
         {
-            if (unit[2] == "C") // K ->C
-            {
-                ConvetType = 5;
-            }
-            else if (unit[2] == "F") // K->F
-            {
-                ConvetType = 6;
-            }
-            else
-            {
-                ConvetType = 0;
-            }
+            // fputs("Kelvin", stdout);
+            unit[count] = "K";
         }
         else
         {
-            fputs("error: Unknown Error1 ", stderr);
+            printf("error: Unrecognized temperature scale %s", argv[count]); // unrecognised temperature scale
             return EXIT_FAILURE;
         }
+    } // for loop end
+    
+      if (argc == 3)  //recognised scale but without temp values 
+    {
+        // fputs("Not enough inputs for calculation", stderr);
+        return EXIT_SUCCESS;
+    }
 
-        float OpTemp;
-
-        for (int ip = 3; (ip <= argc - 1); ip++)
+    // get conversion type eg c->f
+    int ConvetType;
+    if (unit[1] == "C")
+    {
+        if (unit[2] == "F") // c ->F
         {
-            float IpTemp = atof(argv[ip]);
-
-            switch (ConvetType)
-            {
-            case 0:
-                OpTemp = IpTemp;
-                break;
-            case 1: // CF
-                OpTemp = (IpTemp * 9 / 5) + 32;
-                break;
-            case 2: // CK
-                OpTemp = IpTemp + 273.15;
-                break;
-            case 3: // FC
-                OpTemp = (IpTemp - 32) * 5 / 9;
-                break;
-            case 4: // FK
-                OpTemp = 5 / 9 * (IpTemp - 32) + 273.15;
-                break;
-            case 5: // KC
-                OpTemp = IpTemp - 273.15;
-                break;
-            case 6: // KF
-                OpTemp = 9 / 5 * (IpTemp - 273) + 32;
-                break;
-
-            default:
-                fputs("error: Unknown Error2 ", stderr);
-                return EXIT_FAILURE;
-                break;
-            }
-            printf("%.2f\n", OpTemp);
+            ConvetType = 1;
         }
+        else if (unit[2] == "K") // c->K
+        {
+            ConvetType = 2;
+        }
+        else
+        {
+            ConvetType = 0;
+        }
+    }
+    else if (unit[1] == "F")
+    {
+        if (unit[2] == "C") // F ->C
+        {
+            ConvetType = 3;
+        }
+        else if (unit[2] == "K") // F-> K
+        {
+            ConvetType = 4;
+        }
+        else
+        {
+            ConvetType = 0;
+        }
+    }
+    else if (unit[1] == "K")
+    {
+        if (unit[2] == "C") // K ->C
+        {
+            ConvetType = 5;
+        }
+        else if (unit[2] == "F") // K->F
+        {
+            ConvetType = 6;
+        }
+        else
+        {
+            ConvetType = 0;
+        }
+    }
+    else
+    {
+        fputs("error: Unknown Error1 ", stderr);
+        return EXIT_FAILURE;
+    }
+
+    float OpTemp;
+
+    for (int ip = 3; (ip < argc); ip++)
+    {
+        float IpTemp = atof(argv[ip]);
+
+        switch (ConvetType)
+        {
+        case 0: 
+            OpTemp = IpTemp; 
+            break;
+        case 1: // CF
+            OpTemp = (IpTemp * 9 / 5) + 32;
+            break;
+        case 2: // CK
+            OpTemp = IpTemp + 273.15;
+            break;
+        case 3: // FC
+            OpTemp = (IpTemp - 32) * 5 / 9;
+            break;
+        case 4: // FK
+            OpTemp = 5 / 9 * (IpTemp - 32) + 273.15;
+            break;
+        case 5: // KC
+            OpTemp = IpTemp - 273.15;
+            break;
+        case 6: // KF
+            OpTemp = 9 / 5 * (IpTemp - 273) + 32;
+            break;
+
+        default:
+            fputs("error: Unknown Error2 ", stderr);
+            return EXIT_FAILURE;
+            break;
+        }
+        printf("%.2f\n", OpTemp);
+    }
     }
     return EXIT_SUCCESS;
 }
